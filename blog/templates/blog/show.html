@@ -1,0 +1,59 @@
+<!-- {% load static %} -->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Django</title>
+  </head>
+  <body class="bg-gray-100 p-8 font-sans text-gray-800">
+    {% include 'blog/navbar.html' %}
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <article>
+        <header class="mb-8">
+          <span
+            class="text-xs font-semibold tracking-wider text-indigo-600 uppercase"
+            >Published Post</span
+          >
+          <h1
+            class="mt-2 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl md:text-5xl leading-tight"
+          >
+            {{ post.title }}
+          </h1>
+          <div class="mt-4 flex items-center gap-3 text-sm text-gray-500">
+            <span class="font-medium text-gray-700">By Administrator</span>
+            <span class="text-gray-300">&bull;</span>
+            <span>{{ post.created_at|date:"F j, Y, g:i a" }}</span>
+          </div>
+        </header>
+
+        {% if post.image %}
+        <div
+          class="mb-10 rounded-2xl overflow-hidden shadow-md bg-gray-100 max-h-[450px]"
+        >
+          <img
+            src="{{ post.image.url }}"
+            alt="{{ post.title }}"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        {% endif %}
+
+        <div
+          class="prose prose-indigo max-w-none text-gray-700 text-lg leading-relaxed space-y-6"
+        >
+          {{ post.content|linebreaks }}
+        </div>
+
+        <footer class="mt-12 pt-6 border-t border-gray-200">
+          <a
+            href="{% url 'home' %}"
+            class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 shadow-sm transition"
+          >
+            &larr; Back to the feed
+          </a>
+        </footer>
+      </article>
+    </main>
+    {% include 'blog/footer.html' %}
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "name": "django",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./blog/static/css/input.css -o ./blog/static/css/output.css",
+    "watch:css": "tailwindcss -i ./blog/static/css/input.css -o ./blog/static/css/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MostafaSafwatIS21/django.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MostafaSafwatIS21/django/issues"
+  },
+  "homepage": "https://github.com/MostafaSafwatIS21/django#readme"
+}
