@@ -1,9 +1,10 @@
-<!-- {% load static %} -->
+{% load static %}
 <!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>Django</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
   <body class="bg-gray-100 p-8 font-sans text-gray-800">
     {% include 'blog/navbar.html' %}
@@ -20,9 +21,23 @@
             {{ post.title }}
           </h1>
           <div class="mt-4 flex items-center gap-3 text-sm text-gray-500">
-            <span class="font-medium text-gray-700">By Administrator</span>
+            <span class="font-medium text-gray-700">By {{ post.author }}</span>
             <span class="text-gray-300">&bull;</span>
             <span>{{ post.created_at|date:"F j, Y, g:i a" }}</span>
+          </div>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <a
+              href="{% url 'update_post' post.id %}"
+              class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+            >
+              Edit
+            </a>
+            <a
+              href="{% url 'delete_post' post.id %}"
+              class="rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+            >
+              Delete
+            </a>
           </div>
         </header>
 
@@ -43,6 +58,28 @@
         >
           {{ post.content|linebreaks }}
         </div>
+
+        <section class="mt-10 border-t border-gray-200 pt-6">
+          <h2 class="text-xl font-bold text-gray-900">Comments</h2>
+
+          <div class="mt-4 space-y-4">
+            {% for comment in post.comments.all %}
+            <article class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <div class="flex items-center justify-between gap-4">
+                <h3 class="font-semibold text-gray-900">{{ comment.name }}</h3>
+                <span class="text-xs text-gray-400">
+                  {{ comment.created_at|date:"M d, Y" }}
+                </span>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-gray-600">{{ comment.body }}</p>
+            </article>
+            {% empty %}
+            <p class="rounded-xl border border-dashed border-gray-200 bg-white p-4 text-sm text-gray-500">
+              No comments yet.
+            </p>
+            {% endfor %}
+          </div>
+        </section>
 
         <footer class="mt-12 pt-6 border-t border-gray-200">
           <a
